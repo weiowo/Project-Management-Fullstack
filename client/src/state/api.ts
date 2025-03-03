@@ -80,7 +80,7 @@ export const api = createApi({
     prepareHeaders: async (headers) => {
       const session = await fetchAuthSession();
       console.log("session", session)
-      const accessToken = session?.tokens?.toString() ?? "";
+      const accessToken = session?.tokens?.accessToken?.toString() ?? "";
       if (accessToken) {
         headers.set("Authorization", `Bearer ${accessToken}`);
       }
@@ -97,7 +97,7 @@ export const api = createApi({
           const session = await fetchAuthSession();
           if (!session) throw new Error("No session found");
           const { userSub } = session;
-          const accessToken = session?.tokens?.toString() ?? "";
+          const accessToken = session?.tokens?.accessToken?.toString() ?? "";
           console.log("session", session, "accessToken", accessToken)
 
 

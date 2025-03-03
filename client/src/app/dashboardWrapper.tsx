@@ -25,9 +25,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     try {
       const session = await fetchAuthSession();
       console.log("Session:", session);
-      const { accessToken } = session.tokens ?? {};
-      console.log("Access Token:", accessToken);
-      console.log("Token:", accessToken?.toString());
+      const accessToken = session.tokens?.accessToken?.toString() ?? "";
+      const idToken = session.tokens?.idToken?.toString() ?? "";
+      console.log("accessToken:", accessToken?.toString());
+      console.log("idtoken:", idToken?.toString());
+
     } catch (error) {
       console.error("Error fetching session:", error);
     }

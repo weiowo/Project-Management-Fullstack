@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 router.get("/", getTasks);
-router.post("/", createTask);
+router.post("/create-task", createTask);
 router.patch("/:taskId/status", updateTaskStatus);
 router.get("/user/:userId", getUserTasks);
 
