@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import AuthProvider from "./authProvider";
 import StoreProvider, { useAppSelector } from "./redux";
+import { fetchAuthSession } from "aws-amplify/auth";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const isSidebarCollapsed = useAppSelector(
@@ -20,6 +21,18 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     }
   });
 
+  async function checkSession() {
+    try {
+      const session = await fetchAuthSession();
+      console.log("Session:", session);
+      const { accessToken } = session.tokens ?? {};
+      console.log("Access Token:", accessToken);
+      console.log("Token:", accessToken?.toString());
+    } catch (error) {
+      console.error("Error fetching session:", error);
+    }
+  }
+
   return (
     <div className="flex min-h-screen w-full bg-gray-50 text-gray-900">
       <Sidebar />
@@ -29,6 +42,8 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         }`}
       >
         <Navbar />
+        <button onClick={checkSession}>check!!!</button>
+
         {children}
       </main>
     </div>
